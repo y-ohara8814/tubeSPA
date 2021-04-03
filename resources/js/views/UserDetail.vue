@@ -1,0 +1,28 @@
+<template>
+  <div>
+    <h1>ユーザー詳細</h1>
+    <p>User id: {{ $route.params.id }}</p>
+    <ul>
+      <li>User ID: {{ user.id }}</li>
+      <li>User Name: {{ user.name }}</li>
+      <li>User Email: {{ user.email }}</li>
+    </ul>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      id: this.$route.params.id,
+      user: "",
+    };
+  },
+  created() {
+    axios
+      .get("/api/user/" + this.id)
+      .then((response) => (this.user = response.data.user))
+      .catch((error) => console.log(error));
+  },
+};
+</script>
